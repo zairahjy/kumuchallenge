@@ -26,6 +26,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     lazy var artworkImageView: UIImageView = {
         let view = UIImageView()
+        view.image = UIImage(named: "movie-placeholder")
         view.contentMode = .scaleToFill
         return view
     }()
