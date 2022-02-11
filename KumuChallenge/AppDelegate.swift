@@ -11,10 +11,26 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    lazy var appAssembler: AppAssembler = {
+        let assembler = AppAssembler()
+        return assembler
+    }()
+    
+    var coordinator: MainCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let tabs: [MainViewController.Tab] = [
+            .init(iconName: "ticket", viewController: appAssembler.resolver.resolve(MovieListViewController.self)!),
+            .init(iconName: "star.square", viewController: appAssembler.resolver.resolve(FavoriteMoviesViewController.self)!)
+        ]
+        
+        self.coordinator = MainCoordinator(
+            resolver: appAssembler.resolver,
+            destination: MainDestination.main(tabs)
+        )
+        
         return true
     }
 
